@@ -65,6 +65,6 @@ def get_prediction():
     return return_str
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     get_model()
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0")
