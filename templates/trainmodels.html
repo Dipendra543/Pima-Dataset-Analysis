@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block heading %} 
+	The Status of the Model Train is:
+{% endblock %}
+
+
+{% block body %}
+{% if success_status %}
+	<h2>
+		Success!!!
+	</h2>
+{% else %}
+	<h2>
+		---Failure---
+	</h2>
+
+{% endif %}
+
+<a href="{{ url_for('home') }}">Go Back</a>
+	
+{% endblock %}

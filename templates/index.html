@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+To Train the various models, Click on TrainModels Button Below:
+{% endblock %}
+
+{% block body %}
+<div>
+    <form action="{{ url_for('train_model') }}" method="post">
+    <button>TrainModel</button>
+</form>
+</div>
+
+<div>
+    <form action="{{ url_for('get_prediction') }}" method="post">
+    <input type="number" step=1 name="Pregnancies", placeholder="Enter no of pregnancies">
+    <input type="number" step="any" name="Glucose", placeholder="Enter Glucose Level">
+    <input type="number" step="any" name="BloodPressure", placeholder="Enter BloodPressure">
+    <input type="number" step="any" name="SkinThickness", placeholder="Enter SkinThickness">
+    <input type="number" step="any" name="Insulin", placeholder="Enter Insulin Level">
+    <input type="number" step="any" name="BMI", placeholder="Enter BMI">
+    <input type="number" step="any" name="DiabetesPedigreeFunction", placeholder="Enter DPF">
+    <input type="number" step=1 name="Age", placeholder="Enter Age">
+    <button>Predict</button>
+</form>
+
+</div>
+
+
+{% endblock %}
