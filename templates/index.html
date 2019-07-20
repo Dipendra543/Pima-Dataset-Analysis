@@ -21,6 +21,12 @@ To Train the various models, Click on TrainModels Button Below:
     <input type="number" step="any" name="BMI", placeholder="Enter BMI">
     <input type="number" step="any" name="DiabetesPedigreeFunction", placeholder="Enter DPF">
     <input type="number" step=1 name="Age", placeholder="Enter Age">
+    <select name="types_to_learn">
+      <option value="svm_rbf">SVM RBF</option>
+      <option value="svm_linear">SVM LINEAR</option>
+      <option value="logisticregression">LOGISTIC REGRESSION</option>
+      <option value="decisiontree">DECISION TREE</option>
+    </select>
     <button>Predict</button>
 </form>
 
