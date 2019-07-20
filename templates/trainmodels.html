@@ -15,7 +15,13 @@
 		---Failure---
 	</h2>
 
+
 {% endif %}
+
+<h2>The Trained Models and saved Pickle Files Are: </h2>
+{% for each_trained_algorithm in trained_models %}
+    <p>{{  each_trained_algorithm }}</p>
+{% endfor %}
 
 <a href="{{ url_for('home') }}">Go Back</a>
 	

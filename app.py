@@ -1,9 +1,9 @@
-# Define a python framework for a REST API
+# Define a python framework for a REST API for diabetic prediction
 
 from MachineLearning import MachineLearning
+from send_sms import send_sms
 
 import pickle
-import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template
 
@@ -14,7 +14,6 @@ app = Flask(__name__)
 
 @app.route('/trainmodel', methods=['POST'])
 def train_model():
-    success_status = False
     if request.method == 'POST':
         success_status = True
         global trained_models
@@ -25,7 +24,8 @@ def train_model():
         ml_model.persist_model()
         trained_models = ml_model.filenames
 
-        return render_template("trainmodels.html", success_status=success_status)
+        return render_template("trainmodels.html", success_status=success_status, trained_models=trained_models)
+
 
 def get_model():
     global loaded_models
@@ -35,13 +35,6 @@ def get_model():
 
 @app.route('/')
 def home():
-    # get_model()
-    # temp = ""
-    # for i in trained_models:
-    #     temp += str(i) + "\n"
-    #
-    # return_string = "The Trained Models Are: " + temp
-
     return render_template("index.html")
 
 
@@ -51,17 +44,12 @@ def get_prediction():
         get_model()
         output_values = ["Non-Diabetic", "Diabetic"]
         data = request.form
-        # data = np.array(data)[np.newaxis, :]
-        # prediction = loaded_models.predict(data)
-        # data = pd.DataFrame(data)
-        # print(type(dict(data)))
         data = dict(data)
         data = pd.DataFrame(data, index=[0])
-        # print(data)
         prediction = loaded_models.predict(data)
-        # print(prediction)
-        return_str = "The Prediction is: "+str(output_values[prediction[0]])
-        # print(return_str)
+        prediction_string = str(output_values[prediction[0]])
+        return_str = f'The Prediction is: {prediction_string}'
+        send_sms(prediction_string)
     return return_str
 
 

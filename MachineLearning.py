@@ -17,19 +17,14 @@ class MachineLearning:
 
     def __init__(self, path):
         self.pima_df = read_data(path)
-        outcome = self.pima_df['Outcome']
-        data = self.pima_df[self.pima_df.columns[:8]]
         train, test = train_test_split(self.pima_df, test_size=0.25, random_state=0,
                                        stratify=self.pima_df['Outcome'])  # stratify the outcome
         self.train_X = train[train.columns[:8]]
         self.test_X = test[test.columns[:8]]
-        # print(type(self.test_X))
-        # print(self.test_X)
         self.train_Y = train['Outcome']
         self.test_Y = test['Outcome']
 
         self.trained_models = {}
-
 
     def svm(self):
         types = ['rbf', 'linear']
