@@ -7,6 +7,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 import pickle
 
+from processingtime import calculate_running_time
+
 import warnings
 
 warnings.filterwarnings('ignore')
@@ -26,6 +28,7 @@ class MachineLearning:
 
         self.trained_models = {}
 
+    @calculate_running_time
     def svm(self):
         types = ['rbf', 'linear']
         for i in types:
@@ -35,6 +38,7 @@ class MachineLearning:
             self.trained_models["svm_" + i] = model
             print('Accuracy for SVM kernel=', i, 'is', metrics.accuracy_score(prediction, self.test_Y))
 
+    @calculate_running_time
     def logistic_regression(self):
         model = LogisticRegression()
         model.fit(self.train_X, self.train_Y)
@@ -42,6 +46,7 @@ class MachineLearning:
         self.trained_models['logisticregression'] = model
         print('The accuracy of the Logistic Regression is', metrics.accuracy_score(prediction, self.test_Y))
 
+    @calculate_running_time
     def decision_tree(self):
         model = DecisionTreeClassifier()
         model.fit(self.train_X, self.train_Y)
@@ -49,16 +54,17 @@ class MachineLearning:
         self.trained_models['decisiontree'] = model
         print('The accuracy of the Decision Tree is', metrics.accuracy_score(prediction, self.test_Y))
 
+    @calculate_running_time
     def persist_model(self):
         for each_model in self.trained_models.keys():
-            filename = each_model + '.pkl'
+            filename = './output/'+each_model + '.pkl'
             with open(filename, 'wb') as f:
                 pickle.dump(self.trained_models[each_model], f)
                 MachineLearning.filenames.append(filename)
 
 
 if __name__ == '__main__':
-    mlModel = MachineLearning('diabetes.csv')
+    mlModel = MachineLearning('./data/diabetes.csv')
     mlModel.svm()
     mlModel.logistic_regression()
     mlModel.decision_tree()

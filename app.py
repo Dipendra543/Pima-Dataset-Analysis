@@ -29,7 +29,7 @@ def train_model():
 
 def get_model():
     global loaded_models
-    with open('svm_linear.pkl', 'rb') as f:
+    with open('./output/svm_linear.pkl', 'rb') as f:
         loaded_models = pickle.load(f)
 
 
